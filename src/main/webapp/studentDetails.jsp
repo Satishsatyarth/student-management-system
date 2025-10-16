@@ -109,11 +109,10 @@
 		String dob = student.getDob();
 		String gender = student.getGender();
 		int age = student.getAge();
-		String branch = student.getBranch();
-		
-		
+		String branch = student.getBranch();	
 	%>
-    <div class="container">
+	<form method="get" action="logout">
+    <div class="container" >
         <h2>Welcome, <%= name %> 👋</h2>
         <div class="details">
             <p><span>Student ID:</span> <%= id %></p>
@@ -126,5 +125,6 @@
         </div>
         <a href="logout" class="btn">Logout</a>
     </div>
+    </form>
 </body>
 </html>

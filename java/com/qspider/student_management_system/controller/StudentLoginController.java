@@ -10,33 +10,28 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
-
 @WebServlet(value = "/login")
-public class StudentLoginController extends HttpServlet{
-	
+public class StudentLoginController extends HttpServlet {
+
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		
-		HttpSession session =  req.getSession();
-		
-		
+
+		HttpSession session = req.getSession();
+
 		String email = req.getParameter("email");
 		String password = req.getParameter("password");
-		
-		
+
 		Student student = new Studentdao().getStudentByEmailDao(email);
-		
-		if(student!= null && student.getPassword().equals(password)) {
+
+		if (student != null && student.getPassword().equals(password)) {
 			System.out.println("Login Successfully");
 			session.setAttribute("studentSession", email);
-			
-			req.getRequestDispatcher("studentDetails.jsp").forward(req, resp);;
-		}
-		else {
-			
-			System.out.println("Check your credentaial!!!");
-			session.setAttribute("errorMsg", "Check your credentials!!!!");
-			req.getRequestDispatcher("studentLogin.jsp").forward(req, resp);	
+
+			resp.sendRedirect("studentDetails.jsp");
+		} else {
+			System.out.println("Check your credentials!!!");
+			req.setAttribute("errorMsg", "Check your credentials!!!");
+			req.getRequestDispatcher("studentLogin.jsp").forward(req, resp);
 		}
 	}
 }

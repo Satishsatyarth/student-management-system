@@ -175,6 +175,7 @@ body {
 		%>
 		<div class="message error"><%= errorMsg %></div>
 		<%
+		session.removeAttribute("errorMsg");
 		}
 		%>
 
