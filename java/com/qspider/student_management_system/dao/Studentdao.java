@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 import com.mysql.cj.exceptions.CJConnectionFeatureNotAvailableException;
+import com.mysql.cj.result.Row;
 import com.qspider.student_management_system.connection.JDBC_connection;
 import com.qspider.student_management_system.dto.Student;
 
@@ -80,4 +81,29 @@ public class Studentdao {
 			return null;
 		}
 	}
+
+	public boolean updateStudentDetails(Student student, String email) {
+		String updateQuery = "UPDATE student SET name=?, password=?, phone=?, dob=?, gender=?, age=?, branch=? WHERE email=?";
+		boolean rowUpdated = false;
+
+		try {
+			PreparedStatement ps = connection.prepareStatement(updateQuery);
+
+			ps.setString(1, student.getName());
+			ps.setString(2, student.getPassword());
+			ps.setLong(3, student.getPhone());
+			ps.setString(4, student.getDob());
+			ps.setString(5, student.getGender());
+			ps.setInt(6, student.getAge());
+			ps.setString(7, student.getBranch());
+			ps.setString(8, email); // WHERE email = ?
+
+			rowUpdated = ps.executeUpdate() > 0;
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return rowUpdated;
+	}
+
 }

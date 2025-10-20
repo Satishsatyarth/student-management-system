@@ -124,6 +124,7 @@
             <p><span>Branch:</span> <%= branch %></p>
         </div>
         <a href="logout" class="btn">Logout</a>
+        <a href="studentEdit.jsp" class="btn">Update</a>
     </div>
     </form>
 </body>
